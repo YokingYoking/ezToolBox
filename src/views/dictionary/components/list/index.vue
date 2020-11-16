@@ -1,5 +1,6 @@
 <template>
-    <div class="container">
+    <section>
+        <van-pull-refresh v-model="loading" @refresh="onRefresh">
         <van-list v-model="loading"
                   :finished="finished"
                   finished-text="已经到底了"
@@ -8,7 +9,8 @@
                   error-text="请求失败，点击重新加载">
             <van-cell v-for="item in list" :key="item" :title="item" />
         </van-list>
-    </div>
+        </van-pull-refresh>
+    </section>
 </template>
 
 <script>
@@ -34,7 +36,12 @@
                     this.loading = false
                     console.log(err)
                 })
-            }
+            },
+            onRefresh() {
+                this.finished = false;
+                this.loading = true;
+                this.onLoad();
+            },
         },
     }
 </script>

@@ -13,7 +13,8 @@
 </template>
 
 <script>
-    import { routes } from "@/router";
+    import {routes} from "@/router";
+
     export default {
         name: "routeTabBar",
         props: {
@@ -27,15 +28,15 @@
                 active: 0
             }
         },
-        // watch: {
-        //     '$route.path': {
-        //         handler(){
-        //             let currIndex = this.tabList.findIndex((item) => item.routePath === this.$route.path)
-        //             this.tabList[currIndex].curr = true
-        //         },
-        //         immediate: true
-        //     }
-        // },
+        watch: {
+            '$route.path': {
+                handler(){
+                    let curr = this.tabList.findIndex((item) => item.routePath === this.$route.matched[0].path)
+                    this.active = (curr === -1 ? 0 : curr)
+                },
+                immediate: true
+            }
+        },
         methods: {
             tabChange(active) {
                 this.$router.push(this.tabList[active].routePath)
@@ -50,7 +51,7 @@
                 }
             },
         },
-        beforeMount() {
+        created() {
             let that = this
             routes.map((route)=> {
                 if(!route.hidden) {

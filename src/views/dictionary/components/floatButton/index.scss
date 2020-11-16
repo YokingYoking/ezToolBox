@@ -1,0 +1,43 @@
+$primary_color: #07c160;
+$info_color: #1989fa;
+button {
+  position: fixed;
+  z-index: 999;
+  bottom: 125px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: none;
+  color: white;
+  border: solid 1px;
+  transition: opacity 0.2s;
+}
+button::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  border: inherit;
+  border-color: #000;
+  border-radius: inherit;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  content: ' ';
+}
+button:active::before {
+  opacity: 0.1;
+}
+.primary {
+  background: $primary_color;
+  border-color: $primary_color;
+}
+.info {
+  background: $info_color;
+  border-color: $info_color;
+}

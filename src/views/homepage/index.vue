@@ -1,15 +1,15 @@
 <template>
-    <div class="container">
+    <section class="container">
         <h1>{{currentText ? currentText : "请点击开始进行抽签"}}</h1>
         <span>当前所用字典为：{{currDict ? currDict : '未设定'}}</span>
         <van-button
-                type="primary"
+                type="info"
                 @click="btnOnTap"
                 class="main-btn"
         >
             {{isStarted ? "停止" : "开始"}}
         </van-button>
-    </div>
+    </section>
 </template>
 
 <script>
