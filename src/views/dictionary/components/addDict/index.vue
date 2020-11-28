@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import { getDictItem } from "@/api/dict";
     export default {
         name: "addDict",
         data() {
@@ -55,6 +56,14 @@
                 console.log(arr)
                 this.$router.push('/dictionary')
             },
+        },
+        created() {
+          if(this.$route.path === '/dictionary/edit') {
+              getDictItem(this.$route.query.id).then( res => {
+                  this.dictName = res.data.name
+                  this.tags = res.data.tags.join(' ')
+              })
+          }
         },
     }
 </script>

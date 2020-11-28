@@ -1,3 +1,4 @@
+$operate_width: 35%;
 .van-cell {
   text-align: center;
   z-index: 10;
@@ -18,13 +19,13 @@
     transform: translateX(0);
   }
   to {
-    transform: translateX(-35%);
+    transform: translateX(-$operate_width);
   }
 }
 
 @keyframes onBlur {
   from {
-    transform: translateX(-35%);
+    transform: translateX(-$operate_width);
   }
   to {
     transform: translateX(0);
@@ -40,7 +41,7 @@
   top: 0;
   right: 0;
   height: 100%;
-  width: 35%;
+  width: $operate_width;
   display: flex;
   flex-direction: row;
   z-index: 1;

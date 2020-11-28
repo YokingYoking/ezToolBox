@@ -22,6 +22,11 @@ export default
                         path: 'add',
                         name: 'addDict',
                         component: ()=> import('@/views/dictionary/components/addDict'),
+                    },
+                    {
+                        path: 'edit',
+                        name: 'editDict',
+                        component: () => import('@/views/dictionary/components/addDict')
                     }
                 ]
             },

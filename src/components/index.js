@@ -7,6 +7,7 @@ import { Toast } from 'vant'
 import { PullRefresh } from 'vant'
 import { Field } from 'vant'
 import { Form } from 'vant'
+import { Dialog } from "vant"
 
 const components = [
     Button,
@@ -20,6 +21,7 @@ const components = [
     PullRefresh,
     Field,
     Form,
+    Dialog,
 ]
 
 const install = (Vue) => {

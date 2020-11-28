@@ -46,3 +46,14 @@ export const get = (url, params) => {
         })
     })
 }
+export const deleteReq = (url, params) => {
+    return new Promise((resolve, reject) => {
+        axiosInstance.delete(url, {
+            params: params
+        }).then( res => {
+            resolve(res.data)
+        } ).catch(err => {
+            reject(err)
+        })
+    })
+}
