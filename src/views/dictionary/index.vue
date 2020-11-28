@@ -1,16 +1,14 @@
 <template>
-    <section class="container">
-        <router-view></router-view>
-        <float-button type="info">+</float-button>
+    <section class="container" style="padding-top: 20px;">
+        <transition name="fade-transform" mode="out-in">
+            <router-view/>
+        </transition>
     </section>
 </template>
 
 <script>
     export default {
         name: "dictionary",
-        components: {
-            floatButton: () => import('./components/floatButton'),
-        },
         data() {
             return {}
         },
@@ -19,5 +17,4 @@
 </script>
 
 <style scoped>
-
 </style>

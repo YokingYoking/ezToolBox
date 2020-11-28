@@ -1,0 +1,47 @@
+.van-cell {
+  text-align: center;
+  z-index: 10;
+}
+
+.focus {
+  animation: onFocus ease-in-out 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.blur {
+  animation: onBlur ease-in-out 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes onFocus {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-35%);
+  }
+}
+
+@keyframes onBlur {
+  from {
+    transform: translateX(-35%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.cellContainer {
+  position: relative;
+}
+
+.operate {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 35%;
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+}

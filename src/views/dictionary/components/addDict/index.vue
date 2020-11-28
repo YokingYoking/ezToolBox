@@ -1,29 +1,34 @@
 <template>
-    <section>
+    <section class="container">
     <van-nav-bar
-            @on-click-back="back"
-            :leftShow="true"
-            :rightShow="false"
-    >新增字典</van-nav-bar>
+            title="新增字典"
+            left-text="返回"
+            left-arrow
+            @click-left="back"
+            fixed
+            placeholder
+            z-index="666"
+    ></van-nav-bar>
         <article class="container">
-            <van-form @submit="onSubmit">
+            <van-form @submit="onSubmit" class="form">
                 <van-field
-                        v-model="username"
-                        name="用户名"
-                        label="用户名"
-                        placeholder="用户名"
-                        :rules="[{ required: true, message: '请填写用户名' }]"
+                        v-model="dictName"
+                        name="dictName"
+                        label="字典名称"
+                        placeholder="请输入字典名称"
+                        :rules="[{ required: true, message: '请填写字典名称' }]"
                 />
                 <van-field
-                        v-model="password"
-                        type="password"
-                        name="密码"
-                        label="密码"
-                        placeholder="密码"
-                        :rules="[{ required: true, message: '请填写密码' }]"
+                        v-model="tags"
+                        rows="5"
+                        autosize
+                        label="标签"
+                        type="textarea"
+                        placeholder="请输入标签，可用空格分隔标签"
+                        :rules="[{ required: true, message: '请填写字典标签' }]"
                 />
-                <div style="margin: 16px;">
-                    <van-button round block type="info" native-type="submit">
+                <div class="submit">
+                    <van-button round block type="info" native-type="submit" class="submit__btn">
                         提交
                     </van-button>
                 </div>
@@ -38,15 +43,15 @@
         data() {
             return {
                 dictName: '',
-                newTags: ''
+                tags: ''
             }
         },
         methods: {
           back() {
             this.$router.go(-1)
           },
-            addTags() {
-              let arr = this.newTags.split(" ")
+            onSubmit() {
+              let arr = this.tags.split(" ")
                 console.log(arr)
                 this.$router.push('/dictionary')
             },

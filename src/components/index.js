@@ -5,6 +5,8 @@ import { List } from 'vant'
 import { Cell, CellGroup } from 'vant'
 import { Toast } from 'vant'
 import { PullRefresh } from 'vant'
+import { Field } from 'vant'
+import { Form } from 'vant'
 
 const components = [
     Button,
@@ -16,6 +18,8 @@ const components = [
     CellGroup,
     Toast,
     PullRefresh,
+    Field,
+    Form,
 ]
 
 const install = (Vue) => {
