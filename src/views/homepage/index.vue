@@ -1,14 +1,22 @@
 <template>
     <section class="container">
-        <h1>{{currentText ? currentText : "请点击开始进行抽签"}}</h1>
-        <span>当前所用字典为：{{dictText}}</span>
-        <van-button
-                type="info"
-                @click="btnOnTap"
-                class="main-btn"
-        >
-            {{isStarted ? "停止" : "开始"}}
-        </van-button>
+        <van-empty v-if="currDict.length === 0" description="尚未设定字典">
+            <van-button round type="info" class="bottom-button" @click="toSetDict">
+                点我去设定字典
+            </van-button>
+        </van-empty>
+        <div v-else>
+            <h1>{{currentText ? currentText : "请点击开始进行抽签"}}</h1>
+            <span>当前所用字典为：{{currDictName}}</span>
+            <van-button
+                    type="info"
+                    @click="btnOnTap"
+                    class="main-btn"
+            >
+                {{isStarted ? "停止" : "开始"}}
+            </van-button>
+        </div>
+
     </section>
 </template>
 
@@ -20,7 +28,6 @@
               isStarted: false,
               currentText: "",
               currDict: [],
-              dictText: this.currDictName ? this.currDictName : '未设定',
               currDictName: '',
           }
         },
@@ -30,6 +37,9 @@
           },
             toggleState() {
                 this.isStarted = !this.isStarted
+            },
+            toSetDict() {
+              this.$router.push('/dictionary/list')
             },
         },
         created() {

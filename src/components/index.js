@@ -8,6 +8,7 @@ import { PullRefresh } from 'vant'
 import { Field } from 'vant'
 import { Form } from 'vant'
 import { Dialog } from "vant"
+import { Empty } from "vant"
 
 const components = [
     Button,
@@ -22,6 +23,7 @@ const components = [
     Field,
     Form,
     Dialog,
+    Empty,
 ]
 
 const install = (Vue) => {

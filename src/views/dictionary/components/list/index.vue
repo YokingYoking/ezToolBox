@@ -1,7 +1,8 @@
 <template>
     <section class="container">
         <float-button type="info" @click.native="addDict">+</float-button>
-        <van-pull-refresh v-model="loading" @refresh="onRefresh">
+        <van-empty v-if="list.length === 0" description="暂时还没有字典，点击右方加号新建吧~"></van-empty>
+        <van-pull-refresh v-model="loading" @refresh="onRefresh" v-else>
         <van-list v-model="loading"
                   :finished="finished"
                   finished-text="已经到底了"
@@ -36,22 +37,22 @@
         methods: {
             onLoad() {
                 // getDictList().then( res => {
-                //     this.list = res.data.list
+                //     this.list = res.data.list ? res.data.list : []
                 //     this.loading = false
                 //     this.finished = true
                 // }).catch( err => {
                 //     this.error = true
                 //     this.loading = false
-                //     console.log(err)
+                //     console.error(err)
                 // })
                 this.loading = false
                 this.finished = true
                 this.list = [{name: 'a', id: 0}, {name: 'b', id:1 }, {name: 'c', id: 2}]
             },
             onRefresh() {
-                this.finished = false;
-                this.loading = true;
-                this.onLoad();
+                this.finished = false
+                this.loading = true
+                this.onLoad()
             },
             addDict() {
                 this.$router.push('/dictionary/add')
@@ -62,7 +63,6 @@
                     title: '激活字典',
                     message: '现在要启用这个字典吗？',
                 }).then(() => {
-                    console.log(id)
                     this.$toast.loading({
                         message: '加载中...',
                         forbidClick: true,
@@ -73,8 +73,8 @@
                         this.$toast.clear()
                         this.$toast.success('激活成功')
                     })
-                }).catch(() => {
-
+                }).catch(err => {
+                    console.error(err)
                 })
             },
             editItem(event) {
@@ -86,6 +86,9 @@
                     }
                 })
             },
+        },
+        created() {
+          this.onLoad()
         },
     }
 </script>
