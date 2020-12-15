@@ -1,14 +1,16 @@
 <template>
     <section class="container">
         <float-button type="info" @click.native="addDict">+</float-button>
-        <van-empty v-if="list.length === 0" description="暂时还没有字典，点击右方加号新建吧~"></van-empty>
-        <van-pull-refresh v-model="loading" @refresh="onRefresh" v-else>
+        <van-pull-refresh v-model="loading" @refresh="onRefresh">
+            <van-empty v-if="list && list.length === 0 && !error" description="暂时还没有字典，点击右方加号新建吧~"></van-empty>
         <van-list v-model="loading"
                   :finished="finished"
                   finished-text="已经到底了"
                   @load="onLoad"
                   :error.sync="error"
-                  error-text="请求失败，点击重新加载">
+                  error-text="请求失败，点击重新加载"
+                  v-else
+                  >
             <my-list-cell v-for="item in list" :key="item.index" :title="item.name">
                 <van-button type="primary" @click="activateItem" :data-id="item.id">使用</van-button>
                 <van-button type="info" @click="editItem" :data-id="item.id">编辑</van-button>
@@ -28,7 +30,7 @@
         },
         data() {
             return {
-                list: [],
+                list: undefined,
                 loading: false,
                 finished: false,
                 error: false,
@@ -47,6 +49,7 @@
                 // })
                 this.loading = false
                 this.finished = true
+                // this.list = []
                 this.list = [{name: 'a', id: 0}, {name: 'b', id:1 }, {name: 'c', id: 2}]
             },
             onRefresh() {
@@ -86,9 +89,6 @@
                     }
                 })
             },
-        },
-        created() {
-          this.onLoad()
         },
     }
 </script>
