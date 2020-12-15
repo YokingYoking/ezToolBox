@@ -11,7 +11,6 @@
             <my-list-cell v-for="item in list" :key="item.index" :title="item.name">
                 <van-button type="primary" @click="activateItem" :data-id="item.id">使用</van-button>
                 <van-button type="info" @click="editItem" :data-id="item.id">编辑</van-button>
-                <van-button type="danger" @click="deleteItem" :data-id="item.id">删除</van-button>
             </my-list-cell>
         </van-list>
         </van-pull-refresh>
@@ -19,7 +18,7 @@
 </template>
 
 <script>
-    import { getDictList, deleteDict } from "@/api/dict";
+    import { getDictList, getDictItem } from "@/api/dict";
     export default {
         name: "list",
         components: {
@@ -36,16 +35,18 @@
         },
         methods: {
             onLoad() {
-                getDictList().then( res => {
-                    this.list = res.data.list
-                    this.loading = false
-                    this.finished = true
-                }).catch( err => {
-                    this.error = true
-                    this.loading = false
-                    console.log(err)
-                })
-                // this.list = ['a', 'b', 'c']
+                // getDictList().then( res => {
+                //     this.list = res.data.list
+                //     this.loading = false
+                //     this.finished = true
+                // }).catch( err => {
+                //     this.error = true
+                //     this.loading = false
+                //     console.log(err)
+                // })
+                this.loading = false
+                this.finished = true
+                this.list = [{name: 'a', id: 0}, {name: 'b', id:1 }, {name: 'c', id: 2}]
             },
             onRefresh() {
                 this.finished = false;
@@ -62,6 +63,16 @@
                     message: '现在要启用这个字典吗？',
                 }).then(() => {
                     console.log(id)
+                    this.$toast.loading({
+                        message: '加载中...',
+                        forbidClick: true,
+                    })
+                    getDictItem(id).then( res => {
+                        window.sessionStorage.setItem('currDictName', JSON.stringify(res.data.dictName))
+                        window.sessionStorage.setItem('currDict', JSON.stringify(res.data.tags))
+                        this.$toast.clear()
+                        this.$toast.success('激活成功')
+                    })
                 }).catch(() => {
 
                 })
@@ -72,22 +83,6 @@
                     path: '/dictionary/edit',
                     query: {
                         id: id,
-                    }
-                })
-            },
-            deleteItem(event) {
-                let that = this
-                let id = event.currentTarget.dataset.id
-                this.$dialog.confirm({
-                    title: '删除字典',
-                    message: '真的要删除这个字典吗？',
-                    beforeClose: (action, done) => {
-                        if (action === 'confirm') {
-                            deleteDict(id)
-                            that.onRefresh()
-                        } else {
-                            done()
-                        }
                     }
                 })
             },

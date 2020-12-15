@@ -5,12 +5,12 @@ $operate_width: 35%;
 }
 
 .focus {
-  animation: onFocus ease-in-out 0.5s;
+  animation: onFocus cubic-bezier(0.18, 0.89, 0.32, 1) 0.6s;
   animation-fill-mode: forwards;
 }
 
 .blur {
-  animation: onBlur ease-in-out 0.5s;
+  animation: onBlur cubic-bezier(0.18, 0.89, 0.32, 1) 0.6s;
   animation-fill-mode: forwards;
 }
 

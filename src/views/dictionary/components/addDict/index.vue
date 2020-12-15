@@ -31,6 +31,11 @@
                     <van-button round block type="info" native-type="submit" class="submit__btn">
                         提交
                     </van-button>
+                    <van-button type="danger"
+                                v-if="this.$route.path === '/dictionary/edit'"
+                                class="submit__delete"
+                                @click="deleteItem"
+                                round>删除本字典</van-button>
                 </div>
             </van-form>
         </article>
@@ -38,7 +43,7 @@
 </template>
 
 <script>
-    import { getDictItem } from "@/api/dict";
+    import {deleteDict, getDictItem} from "@/api/dict";
     export default {
         name: "addDict",
         data() {
@@ -55,6 +60,22 @@
               let arr = this.tags.split(" ")
                 console.log(arr)
                 this.$router.push('/dictionary')
+            },
+            deleteItem(event) {
+                let that = this
+                let id = event.currentTarget.dataset.id
+                this.$dialog.confirm({
+                    title: '删除字典',
+                    message: '真的要删除这个字典吗？',
+                    beforeClose: (action, done) => {
+                        if (action === 'confirm') {
+                            deleteDict(id)
+                            that.onRefresh()
+                        } else {
+                            done()
+                        }
+                    }
+                })
             },
         },
         created() {
